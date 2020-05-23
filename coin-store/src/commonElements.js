@@ -10,6 +10,7 @@ export const PageTitle = styled.h1`
 export const Button = styled.button`
   padding: 20px 40px;
   border: none;
+  outline: none;
   background-color: #e1e1e1;
   transition: 0.2s;
   &:hover {
@@ -25,6 +26,9 @@ export const Button = styled.button`
     &:hover {
       background-color: grey;
     }
+  }
+  ::-moz-focus-inner {
+    border: 0;
   }
 `;
 

@@ -11,6 +11,10 @@ export const CartContainer = styled.div`
   &:hover {
     background-color: #f3f3f3;
   }
+  img {
+    height: 100%;
+    width: 100%;
+  }
 `;
 export const Badge = styled.p`
   position: absolute;

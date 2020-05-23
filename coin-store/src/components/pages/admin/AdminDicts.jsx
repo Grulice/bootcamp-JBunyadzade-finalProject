@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { PageContainer, DictCol } from "./AdminDicts_style";
+import AdminDictBrowser from "../../UIComponents/AdminDictBrowser";
 
 class AdminDicts extends Component {
   constructor(props) {
@@ -6,7 +8,22 @@ class AdminDicts extends Component {
     this.state = {};
   }
   render() {
-    return <div>Dicts</div>;
+    return (
+      <PageContainer>
+        <DictCol>
+          <h2>Countries</h2>
+          <AdminDictBrowser tableName="countries" />
+        </DictCol>
+        <DictCol>
+          <h2>Categories</h2>
+          <AdminDictBrowser tableName="categories" />
+        </DictCol>
+        <DictCol>
+          <h2>Materials</h2>
+          <AdminDictBrowser tableName="materials" />
+        </DictCol>
+      </PageContainer>
+    );
   }
 }
 

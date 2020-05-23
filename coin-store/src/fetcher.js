@@ -48,6 +48,23 @@ export function getCategories() {
   );
 }
 
+export function getDict(tableName) {
+  return fetch(`${SERVER_BASEURL}/${tableName}`).then((response) =>
+    response.json()
+  );
+}
+
+export function postToDict(tableName, token, insertValObject) {
+  return fetch(`${SERVER_BASEURL}/${tableName}`, {
+    method: "POST",
+    headers: {
+      token,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(insertValObject),
+  }).then((response) => response.status === 200);
+}
+
 export function getSearchResults(queryParams) {
   return fetch(`${SERVER_BASEURL}/search${queryParams}`).then((response) => {
     return response.json();

@@ -22,11 +22,11 @@ export const ItemContainer = styled.div`
   }
 
   .ship-addr-container {
-    width: 25%;
+    width: 20%;
   }
 
   .status-container {
-    width: 12%;
+    width: 15%;
   }
 
   table {
