@@ -113,6 +113,12 @@ export function deleteCoin(id, token) {
   }).then((response) => response.status === 200);
 }
 
+export function getSimilarCoins(id) {
+  return fetch(`${SERVER_BASEURL}/similarcoins/${id}`).then((response) =>
+    response.json()
+  );
+}
+
 export function sendOrder(username, token, orderInfo) {
   console.log(JSON.stringify(orderInfo));
   return fetch(`${SERVER_BASEURL}/orders/${username}`, {

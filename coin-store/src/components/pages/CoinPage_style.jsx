@@ -2,8 +2,11 @@ import styled from "styled-components";
 export const PageContainer = styled.div`
   width: 75%;
   margin: 0 auto;
-  display: flex;
   padding: 30px 0;
+`;
+
+export const CoinInfoContainer = styled.div`
+  display: flex;
 `;
 export const ImagesContainer = styled.div`
   width: 40%;
@@ -49,6 +52,28 @@ export const DescContainer = styled.div`
     border-left: 0.5px solid grey;
   }
 `;
+
+export const SimilarCoinsContainer = styled.div`
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 0.5px solid lightgrey;
+  width: 100%;
+  h3 {
+    margin-bottom: 5px;
+  }
+`;
+export const SimilarCoinsList = styled.ul`
+  list-style: none;
+  display: flex;
+  overflow-x: scroll;
+  li {
+    margin-right: 10px;
+  }
+  img {
+    height: 150px;
+  }
+`;
+
 export const BuyBox = styled.div`
   position: fixed;
   right: 0;

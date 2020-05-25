@@ -254,6 +254,19 @@ app.post("/coinview/:id", (req, res) => {
   });
 });
 
+app.get("/similarcoins/:id", (req, res) => {
+  const targetId = parseInt(req.params.id);
+  dbFuncs
+    .getSimilarCoins(targetId)
+    .then((data) => {
+      res.json(data[2]);
+    })
+    .catch((err) => {
+      console.log(`Error status 500 on get similar coins, server.js: ${err}`);
+      res.sendStatus(500);
+    });
+});
+
 app.get("/search", (req, res) => {
   const count = parseInt(req.query.count);
   const offset = parseInt(req.query.offset);

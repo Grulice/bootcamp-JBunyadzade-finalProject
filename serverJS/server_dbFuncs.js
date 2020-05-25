@@ -4,6 +4,7 @@ const conn = mysql.createPool({
   user: "root",
   password: "1234",
   database: "coins",
+  multipleStatements: true,
 });
 
 function sendQuery(connection, query, params) {
@@ -250,6 +251,56 @@ ORDER BY
   ]);
 }
 
+function getSimilarCoins(id) {
+  const query = `set @target_id = ?;
+  select @target_year := issue_year, @target_country := country_id, @target_category := category_id from coins where id = @target_id;
+    
+    SELECT DISTINCT
+      id, name, year_diff
+  FROM
+      (SELECT 
+          1 AS rnk,
+              id,
+              country_id,
+              ABS(issue_year - @target_year) AS year_diff,
+              category_id,
+              name
+      FROM
+          coins
+      WHERE
+          country_id = @target_country 
+    UNION (SELECT 
+          2 AS rnk,
+              id,
+              country_id,
+              ABS(issue_year - @target_year) AS year_diff,
+              category_id,
+              name
+      FROM
+          coins
+      WHERE
+          @target_category = category_id
+      LIMIT 10)
+          UNION (SELECT 
+          3 AS rnk,
+              id,
+              country_id,
+              ABS(issue_year - @target_year) AS year_diff,
+              category_id,
+              name
+      FROM
+          coins
+      WHERE
+          ABS(issue_year - @target_year) < 20
+      LIMIT 10)) tab
+  WHERE
+      id != @target_id
+  ORDER BY rnk , year_diff
+  `;
+  const params = [id];
+  return sendQuery(conn, query, params);
+}
+
 function getCountries() {
   const query = `SELECT
   id,
@@ -428,6 +479,7 @@ module.exports = {
   deleteCoin,
   getCoinsById,
   getCoinsByCriteria,
+  getSimilarCoins,
   getCountries,
   postCountry,
   getMaterials,
