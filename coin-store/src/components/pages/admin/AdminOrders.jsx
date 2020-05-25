@@ -15,7 +15,9 @@ class AdminOrders extends Component {
     fetcher
       .getAllOrders(token)
       .then((orders) =>
-        this.setState({ orders }, () => console.log(this.state))
+        this.setState({ orders: orders.reverse() }, () =>
+          console.log(this.state)
+        )
       );
   }
 

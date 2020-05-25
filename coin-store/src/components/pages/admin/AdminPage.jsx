@@ -3,7 +3,7 @@ import AdminCoinList from "./AdminCoinList";
 import AdminOrders from "./AdminOrders";
 import AdminDicts from "./AdminDicts";
 import AdminEditCoin from "./AdminEditCoin";
-import { Route, Link } from "react-router-dom";
+import { Route, Link, withRouter } from "react-router-dom";
 import { NavButton } from "../../../commonElements";
 import { PageContainer, NavBar } from "./AdminPage_style";
 
@@ -12,6 +12,16 @@ class AdminPage extends Component {
     super(props);
     this.state = { active: "" };
   }
+
+  componentDidMount() {
+    this.getActiveTab();
+  }
+
+  getActiveTab = () => {
+    let curPath = this.props.location.pathname;
+    this.setState({ active: curPath.split("/").pop() });
+  };
+
   render() {
     const { active } = this.state;
     return (
@@ -65,4 +75,4 @@ class AdminPage extends Component {
   }
 }
 
-export default AdminPage;
+export default withRouter(AdminPage);

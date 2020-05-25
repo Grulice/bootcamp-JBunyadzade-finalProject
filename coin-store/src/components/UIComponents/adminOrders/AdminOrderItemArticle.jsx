@@ -12,10 +12,13 @@ class OrderItemArticle extends Component {
     console.log(this.props);
   }
   render() {
-    const { name, price, quantity } = this.props;
+    const { id, name, price, quantity } = this.props;
     return (
       <RowContainer>
-        <td>{name}</td> <td> x {quantity}</td>
+        <td>
+          ({id}) {name}
+        </td>
+        <td> x&nbsp;{quantity}</td>
         <td className="total-price">
           <b> = {quantity * price} $</b>
         </td>

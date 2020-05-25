@@ -72,7 +72,7 @@ class Header extends Component {
 
         <LoginInfoContainer>
           {username && token ? (
-            <Button onClick={this.handleLogOut}>Log out</Button>
+            <Button onClick={this.handleLogOut}>Log&nbsp;out</Button>
           ) : (
             <Link to="/login">
               <ButtonPrimary>Sign-in / Register</ButtonPrimary>
@@ -88,7 +88,7 @@ class Header extends Component {
                 {username === "admin" && (
                   <>
                     {" | "}
-                    <LinkSmall to="/admin">Admin Panel</LinkSmall>
+                    <LinkSmall to="/admin/coinlist">Admin Panel</LinkSmall>
                   </>
                 )}
               </LoginInfoLabel>
