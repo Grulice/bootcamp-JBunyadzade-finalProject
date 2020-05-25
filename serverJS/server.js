@@ -246,6 +246,14 @@ app.get("/coin/:idlist", (req, res) => {
     });
 });
 
+app.post("/coinview/:id", (req, res) => {
+  const targetId = parseInt(req.params.id);
+  dbFuncs.addView(targetId).then((data) => {
+    if (data.affectedRows) return res.sendStatus(200);
+    else return res.sendStatus(500);
+  });
+});
+
 app.get("/search", (req, res) => {
   const count = parseInt(req.query.count);
   const offset = parseInt(req.query.offset);

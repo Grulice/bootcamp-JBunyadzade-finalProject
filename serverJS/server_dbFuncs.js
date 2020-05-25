@@ -55,6 +55,12 @@ function postCoin() {
   return sendQuery(conn, query, params);
 }
 
+function addView(id) {
+  const query = `update coins set views = views + 1 where id = ?`;
+  const params = [id];
+  return sendQuery(conn, query, params);
+}
+
 function putCoin(coinInfo) {
   const {
     id,
@@ -164,7 +170,8 @@ function getCoinsByCriteria(criteria, offset, count) {
      id,
     name,
     desc_short,
-    desc_long
+    desc_long,
+    views
 FROM
     (
         SELECT
@@ -178,7 +185,8 @@ FROM
             issue_year,
             name,
             desc_short,
-            desc_long
+            desc_long,
+            views
         FROM
             coins
         WHERE
@@ -195,7 +203,8 @@ FROM
             issue_year,
             name,
             desc_short,
-            desc_long
+            desc_long,
+            views
         FROM
             coins
         WHERE
@@ -212,7 +221,8 @@ FROM
             issue_year,
             name,
             desc_short,
-            desc_long
+            desc_long,
+            views
         FROM
             coins
         WHERE
@@ -331,9 +341,9 @@ values
   (
     NULL,
     ?,
-    '${passwordHash}'
+    ?
   );`;
-  const params = [username];
+  const params = [username, passwordHash];
   return sendQuery(conn, query, params);
 }
 
@@ -413,6 +423,7 @@ module.exports = {
   getCoinCount,
   getCoins,
   postCoin,
+  addView,
   putCoin,
   deleteCoin,
   getCoinsById,

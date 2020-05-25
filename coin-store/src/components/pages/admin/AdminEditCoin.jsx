@@ -53,6 +53,11 @@ class AdminEditCoin extends Component {
       addSuccess: false,
 
       coinNotFound: false,
+
+      // this will be appended to <img> sources every time the image is changed
+      // the browser is forced to reload image (because the url has changed)
+      // This is a total bodge job. I'm sorry ;(
+      imageReloadForcer: Date.now(),
     };
   }
 
@@ -125,11 +130,15 @@ class AdminEditCoin extends Component {
 
     fetcher.putCoin(this.props.token, formData, targetId).then((success) => {
       if (success) {
-        this.setState({ addSuccess: true }, () => {
-          setTimeout(() => {
-            this.setState({ addSuccess: false });
-          }, 2000);
-        });
+        alert("Coin info updated successfully!");
+        this.setState(
+          { addSuccess: true, imageReloadForcer: Date.now() },
+          () => {
+            setTimeout(() => {
+              this.setState({ addSuccess: false });
+            }, 2000);
+          }
+        );
       } else {
         alert("Something went wrong...");
       }
@@ -201,6 +210,7 @@ class AdminEditCoin extends Component {
       weightInp,
       coinNotFound,
       addSuccess,
+      imageReloadForcer,
     } = this.state;
     return (
       <PageForm onSubmit={this.handleSubmit}>
@@ -338,7 +348,7 @@ class AdminEditCoin extends Component {
                   <ImgPreviewBox>
                     <InputLabel>Current obverse image</InputLabel>
                     <img
-                      src={`${SERVER_BASEURL}/image/${this.props.match.params.id}.png`}
+                      src={`${SERVER_BASEURL}/image/${this.props.match.params.id}.png?${imageReloadForcer}`}
                       alt=""
                     />
                   </ImgPreviewBox>
@@ -346,7 +356,7 @@ class AdminEditCoin extends Component {
                   <ImgPreviewBox>
                     <InputLabel>Current reverse image</InputLabel>
                     <img
-                      src={`${SERVER_BASEURL}/image/${this.props.match.params.id}r.png`}
+                      src={`${SERVER_BASEURL}/image/${this.props.match.params.id}r.png?${imageReloadForcer}`}
                       alt=""
                     />
                   </ImgPreviewBox>

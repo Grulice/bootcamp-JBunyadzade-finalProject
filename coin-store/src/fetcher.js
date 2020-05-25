@@ -157,3 +157,9 @@ export function putOrderStatus(token, orderId, status) {
     return response.status === 200;
   });
 }
+
+export function postCoinView(id) {
+  return fetch(`${SERVER_BASEURL}/coinview/${id}`, {
+    method: "POST",
+  }).then((response) => response.status === 200);
+}

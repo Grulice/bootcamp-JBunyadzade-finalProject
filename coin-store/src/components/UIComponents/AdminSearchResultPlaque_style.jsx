@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { Button } from "../../commonElements";
 export const PlaqueContainer = styled.div`
+  position: relative;
   display: ${(props) => (props.removed ? "none" : "flex")};
   justify-content: space-between;
   align-items: center;
@@ -10,6 +11,27 @@ export const PlaqueContainer = styled.div`
   width: 65%;
   height: 120px;
 `;
+
+export const DeleteModalContainer = styled.div`
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.9);
+
+  .elements-container {
+    text-align: center;
+  }
+  .buttons-container {
+    display: flex;
+    justify-content: space-between;
+    width: 220px;
+  }
+`;
+
 export const ImageContainer = styled.div`
   width: 120px;
   margin-right: 10px;
@@ -20,6 +42,22 @@ export const ImageContainer = styled.div`
 export const DescContainer = styled.div`
   width: 300px;
   height: 100%;
+
+  .header-container {
+    display: flex;
+    align-items: bottom;
+  }
+  .views-container {
+    display: flex;
+    align-items: center;
+    font-size: small;
+    color: grey;
+    margin-left: 10px;
+    .eye-icon {
+      height: 1.2em;
+      margin-right: 5px;
+    }
+  }
 `;
 export const CoinLink = styled(Link)`
   color: blueviolet;

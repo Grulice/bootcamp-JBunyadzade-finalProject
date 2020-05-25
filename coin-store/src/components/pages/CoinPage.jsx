@@ -48,6 +48,9 @@ class CoinPage extends Component {
         () => console.log(this.state)
       )
     );
+
+    // increase view count
+    fetcher.postCoinView(this.props.match.params.id);
   }
 
   render() {

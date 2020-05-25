@@ -274,6 +274,7 @@ class AdminCoinList extends Component {
                       coinId={result.id}
                       name={result.name}
                       shortDesc={result.desc_short}
+                      views={result.views}
                       redirectCB={this.redirectToEdit}
                     />
                   ))}

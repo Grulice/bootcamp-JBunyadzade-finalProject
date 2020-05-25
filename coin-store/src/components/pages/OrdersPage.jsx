@@ -24,9 +24,13 @@ class OrdersPage extends Component {
       <PageContainer>
         {token ? (
           <OrdersContainer>
-            {orders.map((order) => (
-              <OrderItem key={order.id} {...order} />
-            ))}
+            {orders.length > 0 ? (
+              orders.map((order) => <OrderItem key={order.id} {...order} />)
+            ) : (
+              <p style={{ textAlign: "center" }}>
+                You have no orders :( Perhaps you'd like to buy something?
+              </p>
+            )}
           </OrdersContainer>
         ) : (
           <p>Please, log-in to view your orders</p>
