@@ -373,7 +373,7 @@ function getUserInfo(username) {
   username,
   passwordHash
 FROM
-  coins.users
+  users
 where
   username = ?`;
   const params = [username];
@@ -383,7 +383,7 @@ where
 function postUserInfo(userInfo) {
   const { username, passwordHash } = userInfo;
   const query = `insert into
-  coins.users (
+  users (
     id,
     username,
     passwordHash
@@ -402,7 +402,7 @@ function getUsernameForToken(token) {
   const query = `SELECT
   username
 FROM
-  coins.tokens
+  tokens
 WHERE
   token = ?`;
   const params = [token];
@@ -411,7 +411,7 @@ WHERE
 
 function postToken(username, token) {
   const query = `insert into
-  coins.tokens (username, token)
+  tokens (username, token)
 values
   (
     ?,
@@ -423,7 +423,7 @@ values
 
 function deleteToken(token) {
   const query = `delete from
-  coins.tokens
+  tokens
 where
   token = ?`;
   const params = [token];
@@ -460,7 +460,7 @@ function postOrder(orderInfo) {
 
 function putOrderStatus(id, newStatus) {
   const query = `update 
-  coins.orders 
+  orders 
 set 
   status = ?
 where 
