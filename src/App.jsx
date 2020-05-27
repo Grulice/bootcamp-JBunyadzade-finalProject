@@ -30,7 +30,7 @@ class App extends Component {
   };
 
   checkLocalStorageCart = () => {
-    const cartString = localStorage.getItem("cart");
+    const cartString = localStorage.getItem("cart") || "[]";
     this.props.setCart(JSON.parse(cartString));
   };
 
