@@ -34,7 +34,7 @@ class CartItem extends Component {
     const { id, name, shortDesc, quantity, price } = this.props;
     return (
       <ItemContainer removed={this.state.itemRemoved}>
-        <img src={`${SERVER_BASEURL}/image/${id}.png`} alt="" />
+        <img src={`/api/image/${id}.png`} alt="" />
         <DescContainer>
           <CoinLink to={`/coin/${id}`}>{name}</CoinLink>
           <CoinDesc>{shortDesc}</CoinDesc>

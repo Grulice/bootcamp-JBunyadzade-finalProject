@@ -2,7 +2,7 @@ const SERVER_BASEURL = "http://localhost:3001";
 
 export function getUserToken(username, password) {
   const reqBody = { username: username, password: password };
-  return fetch(`${SERVER_BASEURL}/gettoken`, {
+  return fetch(`/api/gettoken`, {
     method: "POST",
     body: JSON.stringify(reqBody),
     headers: {
@@ -19,7 +19,7 @@ export function getUserToken(username, password) {
 
 export function registerUser(username, password) {
   const reqBody = { username, password };
-  return fetch(`${SERVER_BASEURL}/register`, {
+  return fetch(`/api/register`, {
     method: "POST",
     body: JSON.stringify(reqBody),
     headers: {
@@ -31,31 +31,23 @@ export function registerUser(username, password) {
 }
 
 export function getCountries() {
-  return fetch(`${SERVER_BASEURL}/countries`).then((response) =>
-    response.json()
-  );
+  return fetch(`/api/countries`).then((response) => response.json());
 }
 
 export function getMetals() {
-  return fetch(`${SERVER_BASEURL}/materials`).then((response) =>
-    response.json()
-  );
+  return fetch(`/api/materials`).then((response) => response.json());
 }
 
 export function getCategories() {
-  return fetch(`${SERVER_BASEURL}/categories`).then((response) =>
-    response.json()
-  );
+  return fetch(`/api/categories`).then((response) => response.json());
 }
 
 export function getDict(tableName) {
-  return fetch(`${SERVER_BASEURL}/${tableName}`).then((response) =>
-    response.json()
-  );
+  return fetch(`/api/${tableName}`).then((response) => response.json());
 }
 
 export function postToDict(tableName, token, insertValObject) {
-  return fetch(`${SERVER_BASEURL}/${tableName}`, {
+  return fetch(`/api/${tableName}`, {
     method: "POST",
     headers: {
       token,
@@ -66,25 +58,23 @@ export function postToDict(tableName, token, insertValObject) {
 }
 
 export function getSearchResults(queryParams) {
-  return fetch(`${SERVER_BASEURL}/search${queryParams}`).then((response) => {
+  return fetch(`/api/search${queryParams}`).then((response) => {
     return response.json();
   });
 }
 
 export function getCoinInfo(coinId) {
-  return fetch(`${SERVER_BASEURL}/coin/${coinId}`).then((response) =>
-    response.json()
-  );
+  return fetch(`/api/coin/${coinId}`).then((response) => response.json());
 }
 
 export function getMultipleCoinInfo(coinIds) {
-  return fetch(`${SERVER_BASEURL}/coin/${coinIds.join(",")}`).then((response) =>
+  return fetch(`/api/coin/${coinIds.join(",")}`).then((response) =>
     response.json()
   );
 }
 
 export function createCoin(token) {
-  return fetch(`${SERVER_BASEURL}/coin`, {
+  return fetch(`/api/coin`, {
     method: "POST",
     headers: {
       token,
@@ -93,7 +83,7 @@ export function createCoin(token) {
 }
 
 export function putCoin(token, formData, coinId) {
-  return fetch(`${SERVER_BASEURL}/coin/${coinId}`, {
+  return fetch(`/api/coin/${coinId}`, {
     method: "PUT",
     headers: {
       token,
@@ -105,7 +95,7 @@ export function putCoin(token, formData, coinId) {
 }
 
 export function deleteCoin(id, token) {
-  return fetch(`${SERVER_BASEURL}/coin/${id}`, {
+  return fetch(`/api/coin/${id}`, {
     method: "DELETE",
     headers: {
       token,
@@ -114,14 +104,12 @@ export function deleteCoin(id, token) {
 }
 
 export function getSimilarCoins(id) {
-  return fetch(`${SERVER_BASEURL}/similarcoins/${id}`).then((response) =>
-    response.json()
-  );
+  return fetch(`/api/similarcoins/${id}`).then((response) => response.json());
 }
 
 export function sendOrder(username, token, orderInfo) {
   console.log(JSON.stringify(orderInfo));
-  return fetch(`${SERVER_BASEURL}/orders/${username}`, {
+  return fetch(`/api/orders/${username}`, {
     method: "POST",
     headers: {
       token,
@@ -132,7 +120,7 @@ export function sendOrder(username, token, orderInfo) {
 }
 
 export function getOrders(username, token) {
-  return fetch(`${SERVER_BASEURL}/orders/${username}`, {
+  return fetch(`/api/orders/${username}`, {
     method: "GET",
     headers: {
       token,
@@ -141,7 +129,7 @@ export function getOrders(username, token) {
 }
 
 export function getAllOrders(token) {
-  return fetch(`${SERVER_BASEURL}/orders`, {
+  return fetch(`/api/orders`, {
     method: "GET",
     headers: {
       token,
@@ -152,7 +140,7 @@ export function getAllOrders(token) {
 export function putOrderStatus(token, orderId, status) {
   const reqbody = { status };
   console.log("in fetcher", reqbody);
-  return fetch(`${SERVER_BASEURL}/orders/${orderId}`, {
+  return fetch(`/api/orders/${orderId}`, {
     method: "PUT",
     headers: {
       token,
@@ -165,14 +153,14 @@ export function putOrderStatus(token, orderId, status) {
 }
 
 export function postCoinView(id) {
-  return fetch(`${SERVER_BASEURL}/coinview/${id}`, {
+  return fetch(`/api/coinview/${id}`, {
     method: "POST",
   }).then((response) => response.status === 200);
 }
 
 export function postHistoryView(username, token, coin_id) {
   const reqbody = { coin_id };
-  return fetch(`${SERVER_BASEURL}/history/${username}`, {
+  return fetch(`/api/history/${username}`, {
     method: "POST",
     headers: {
       token,
@@ -183,7 +171,7 @@ export function postHistoryView(username, token, coin_id) {
 }
 
 export function getHistoryViews(username, token) {
-  return fetch(`${SERVER_BASEURL}/history/${username}`, {
+  return fetch(`/api/history/${username}`, {
     method: "GET",
     headers: {
       token,

@@ -94,8 +94,8 @@ class CoinPage extends Component {
       <PageContainer>
         <CoinInfoContainer>
           <ImagesContainer>
-            <img src={`${SERVER_BASEURL}/image/${params.id}.png`} alt="" />{" "}
-            <img src={`${SERVER_BASEURL}/image/${params.id}r.png`} alt="" />{" "}
+            <img src={`/api/image/${params.id}.png`} alt="" />{" "}
+            <img src={`/api/image/${params.id}r.png`} alt="" />{" "}
           </ImagesContainer>
           <DescContainer>
             <h2>{name}</h2>
@@ -149,10 +149,7 @@ class CoinPage extends Component {
             {similarCoins.map((coin) => (
               <li key={coin.id}>
                 <Link to={`/coin/${coin.id}`}>
-                  <img
-                    src={`${SERVER_BASEURL}/image/${coin.id}.png`}
-                    alt={coin.name}
-                  />
+                  <img src={`/api/image/${coin.id}.png`} alt={coin.name} />
                   <ButtonTextSmall>{coin.name}</ButtonTextSmall>
                 </Link>
               </li>

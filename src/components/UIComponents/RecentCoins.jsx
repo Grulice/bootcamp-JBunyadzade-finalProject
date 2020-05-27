@@ -48,7 +48,7 @@ class RecentCoins extends Component {
                   <li key={item.id}>
                     <Link to={`/coin/${item.coin_id}`}>
                       <img
-                        src={`${SERVER_BASEURL}/image/${item.coin_id}.png`}
+                        src={`/api/image/${item.coin_id}.png`}
                         alt={item.name}
                       />
                       <ButtonTextSmall>{item.name}</ButtonTextSmall>

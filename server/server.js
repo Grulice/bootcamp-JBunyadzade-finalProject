@@ -7,16 +7,16 @@ const utilFuncs = require("./server_utilFuncs");
 const dbFuncs = require("./server_dbFuncs");
 
 const app = express();
-const PORT = 3001;
 const upload = multer({
   dest: "./temp",
 }); // for image upload
 
+app.use(express.static(path.resolve("build")));
 app.use(express.json());
 app.use(cors());
 
 //#region AUTH
-app.post("/register", (req, res) => {
+app.post("/api/register", (req, res) => {
   const newUserCreds = {
     username: req.body.username,
     password: req.body.password,
@@ -40,7 +40,7 @@ app.post("/register", (req, res) => {
     });
 });
 
-app.post("/gettoken", (req, res) => {
+app.post("/api/gettoken", (req, res) => {
   const authInfo = { username: req.body.username, password: req.body.password };
   utilFuncs.authorizeUser(authInfo).then((isAuthorized) => {
     if (isAuthorized) {
@@ -53,7 +53,7 @@ app.post("/gettoken", (req, res) => {
   });
 });
 
-app.get("/logout", (req, res) => {
+app.get("/api/logout", (req, res) => {
   const { token } = req.headers;
   utilFuncs
     .removeToken(token)
@@ -69,7 +69,7 @@ app.get("/logout", (req, res) => {
 //#endregion AUTH END
 
 //#region COINS
-app.get("/coin", (req, res) => {
+app.get("/api/coin", (req, res) => {
   const count = parseInt(req.query.count);
   const offset = parseInt(req.query.offset);
 
@@ -95,7 +95,7 @@ app.get("/coin", (req, res) => {
   }
 });
 
-app.post("/coin", (req, res) => {
+app.post("/api/coin", (req, res) => {
   const { token } = req.headers;
   //only the admin can add countries
   utilFuncs.checkAdminPrivelege(token).then((isAdmin) => {
@@ -116,7 +116,7 @@ app.post("/coin", (req, res) => {
   });
 });
 
-app.put("/coin/:id", upload.any(), (req, res) => {
+app.put("/api/coin/:id", upload.any(), (req, res) => {
   const { token } = req.headers;
   //only the admin can add countries
   utilFuncs.checkAdminPrivelege(token).then((isAdmin) => {
@@ -202,7 +202,7 @@ app.put("/coin/:id", upload.any(), (req, res) => {
   });
 });
 
-app.delete("/coin/:id", (req, res) => {
+app.delete("/api/coin/:id", (req, res) => {
   const { token } = req.headers;
   //only the admin can add countries
   utilFuncs.checkAdminPrivelege(token).then((isAdmin) => {
@@ -224,7 +224,7 @@ app.delete("/coin/:id", (req, res) => {
   });
 });
 
-app.get("/coin/:idlist", (req, res) => {
+app.get("/api/coin/:idlist", (req, res) => {
   const idList = req.params.idlist;
   // check that all ids are numbers
   const splitIDlist = idList.split(",").map((id) => parseInt(id));
@@ -246,7 +246,7 @@ app.get("/coin/:idlist", (req, res) => {
     });
 });
 
-app.post("/coinview/:id", (req, res) => {
+app.post("/api/coinview/:id", (req, res) => {
   const targetId = parseInt(req.params.id);
   dbFuncs.addView(targetId).then((data) => {
     if (data.affectedRows) return res.sendStatus(200);
@@ -254,7 +254,7 @@ app.post("/coinview/:id", (req, res) => {
   });
 });
 
-app.get("/similarcoins/:id", (req, res) => {
+app.get("/api/similarcoins/:id", (req, res) => {
   const targetId = parseInt(req.params.id);
   dbFuncs
     .getSimilarCoins(targetId)
@@ -267,7 +267,7 @@ app.get("/similarcoins/:id", (req, res) => {
     });
 });
 
-app.get("/search", (req, res) => {
+app.get("/api/search", (req, res) => {
   const count = parseInt(req.query.count);
   const offset = parseInt(req.query.offset);
 
@@ -313,7 +313,7 @@ app.get("/search", (req, res) => {
 //#endregion COINS END
 
 //#region DICTIONARIES
-app.get("/countries", (req, res) => {
+app.get("/api/countries", (req, res) => {
   dbFuncs
     .getCountries()
     .then((data) => {
@@ -325,7 +325,7 @@ app.get("/countries", (req, res) => {
     });
 });
 
-app.post("/countries", (req, res) => {
+app.post("/api/countries", (req, res) => {
   const { token } = req.headers;
   //only the admin can add countries
   utilFuncs.checkAdminPrivelege(token).then((isAdmin) => {
@@ -347,7 +347,7 @@ app.post("/countries", (req, res) => {
   });
 });
 
-app.get("/materials", (req, res) => {
+app.get("/api/materials", (req, res) => {
   dbFuncs
     .getMaterials()
     .then((data) => {
@@ -359,7 +359,7 @@ app.get("/materials", (req, res) => {
     });
 });
 
-app.post("/materials", (req, res) => {
+app.post("/api/materials", (req, res) => {
   const { token } = req.headers;
   //only the admin can add materials
   utilFuncs.checkAdminPrivelege(token).then((isAdmin) => {
@@ -381,7 +381,7 @@ app.post("/materials", (req, res) => {
   });
 });
 
-app.get("/categories", (req, res) => {
+app.get("/api/categories", (req, res) => {
   dbFuncs
     .getCategories()
     .then((data) => {
@@ -393,7 +393,7 @@ app.get("/categories", (req, res) => {
     });
 });
 
-app.post("/categories", (req, res) => {
+app.post("/api/categories", (req, res) => {
   const { token } = req.headers;
   //only the admin can add categories
   utilFuncs.checkAdminPrivelege(token).then((isAdmin) => {
@@ -417,7 +417,7 @@ app.post("/categories", (req, res) => {
 //#endregion DICTIONARIES END
 
 //IMAGE SERVING
-app.get("/image/:name", (req, res) => {
+app.get("/api/image/:name", (req, res) => {
   const options = {
     root: path.join(__dirname, "img"),
     dotfiles: "deny",
@@ -439,7 +439,7 @@ app.get("/image/:name", (req, res) => {
 });
 
 //#region ORDERS
-app.get("/orders/:username", (req, res) => {
+app.get("/api/orders/:username", (req, res) => {
   const { username } = req.params;
   const { token } = req.headers;
   utilFuncs
@@ -459,7 +459,7 @@ app.get("/orders/:username", (req, res) => {
     });
 });
 
-app.post("/orders/:username", (req, res) => {
+app.post("/api/orders/:username", (req, res) => {
   const { username } = req.params;
   const { token } = req.headers;
   utilFuncs
@@ -494,7 +494,7 @@ app.post("/orders/:username", (req, res) => {
     });
 });
 
-app.get("/orders", (req, res) => {
+app.get("/api/orders", (req, res) => {
   const { token } = req.headers;
   //only the admin can get all orders
   utilFuncs.checkAdminPrivelege(token).then((isAdmin) => {
@@ -515,7 +515,7 @@ app.get("/orders", (req, res) => {
   });
 });
 
-app.put("/orders/:id", (req, res) => {
+app.put("/api/orders/:id", (req, res) => {
   const { token } = req.headers;
   //only the admin can get all orders
   utilFuncs.checkAdminPrivelege(token).then((isAdmin) => {
@@ -541,7 +541,7 @@ app.put("/orders/:id", (req, res) => {
 //#endregion ORDERS END
 
 //#region VIEW HISTORY
-app.post("/history/:username", (req, res) => {
+app.post("/api/history/:username", (req, res) => {
   const { username } = req.params;
   const { token } = req.headers;
   const { coin_id } = req.body;
@@ -575,7 +575,7 @@ app.post("/history/:username", (req, res) => {
     });
 });
 
-app.get("/history/:username", (req, res) => {
+app.get("/api/history/:username", (req, res) => {
   const { username } = req.params;
   const { token } = req.headers;
   utilFuncs
@@ -598,4 +598,13 @@ app.get("/history/:username", (req, res) => {
 });
 
 //#endregion
+
+app.get("/*", function (_req, res) {
+  res.sendFile(path.resolve("build/index.html"));
+});
+
+let PORT = process.env.PORT;
+if (PORT == null || PORT == "") {
+  PORT = 8000;
+}
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));

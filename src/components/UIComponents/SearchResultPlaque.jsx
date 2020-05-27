@@ -21,7 +21,7 @@ class SearchResultPlaque extends Component {
       <PlaqueContainer>
         <ImageContainer>
           <Link to={`/coin/${coinId}`}>
-            <img src={`${SERVER_BASEURL}/image/${coinId}.png`} alt="" />
+            <img src={`/api/image/${coinId}.png`} alt="" />
           </Link>
         </ImageContainer>
         <DescContainer>

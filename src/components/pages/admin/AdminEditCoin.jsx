@@ -348,7 +348,7 @@ class AdminEditCoin extends Component {
                   <ImgPreviewBox>
                     <InputLabel>Current obverse image</InputLabel>
                     <img
-                      src={`${SERVER_BASEURL}/image/${this.props.match.params.id}.png?${imageReloadForcer}`}
+                      src={`/api/image/${this.props.match.params.id}.png?${imageReloadForcer}`}
                       alt=""
                     />
                   </ImgPreviewBox>
@@ -356,7 +356,7 @@ class AdminEditCoin extends Component {
                   <ImgPreviewBox>
                     <InputLabel>Current reverse image</InputLabel>
                     <img
-                      src={`${SERVER_BASEURL}/image/${this.props.match.params.id}r.png?${imageReloadForcer}`}
+                      src={`/api/image/${this.props.match.params.id}r.png?${imageReloadForcer}`}
                       alt=""
                     />
                   </ImgPreviewBox>
