@@ -1,10 +1,11 @@
 const mysql = require("mysql");
-const conn = mysql.createPool(
-  "mysql://iywboxq7iupof68k:ec9u8agf2lydaqyw@kcpgm0ka8vudfq76.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/titkcigg5gfb7sa3",
-  {
-    multipleStatements: true,
-  }
-);
+const conn = mysql.createPool({
+  host: "kcpgm0ka8vudfq76.chr7pe7iynqr.eu-west-1.rds.amazonaws.com",
+  user: "iywboxq7iupof68k",
+  password: "ec9u8agf2lydaqyw",
+  database: "titkcigg5gfb7sa3",
+  multipleStatements: true,
+});
 
 function sendQuery(connection, query, params) {
   return new Promise((resolve, reject) => {
