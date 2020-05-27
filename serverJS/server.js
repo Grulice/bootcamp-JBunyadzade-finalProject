@@ -540,4 +540,62 @@ app.put("/orders/:id", (req, res) => {
 
 //#endregion ORDERS END
 
+//#region VIEW HISTORY
+app.post("/history/:username", (req, res) => {
+  const { username } = req.params;
+  const { token } = req.headers;
+  const { coin_id } = req.body;
+  utilFuncs
+    .checkToken(username, token)
+    .then((tokenValid) => {
+      if (tokenValid) {
+        // post view
+        const dateObj = new Date();
+        const isoStr = dateObj.toISOString();
+        const view_time =
+          isoStr.substring(0, 10) + " " + isoStr.substring(11, 19);
+        dbFuncs.postHistoryView(username, coin_id, view_time).then((data) => {
+          if (data.insertId) {
+            // new history entry created successfully
+            return res.sendStatus(200);
+          } else {
+            console.log(`Error status 500 on post coin, server.js`);
+            res.sendStatus(500);
+          }
+        });
+      } else {
+        return res.sendStatus(403);
+      }
+    })
+    .catch((err) => {
+      console.log(
+        `Error status 500 on get orders for username, server.js: ${err}`
+      );
+      res.sendStatus(500);
+    });
+});
+
+app.get("/history/:username", (req, res) => {
+  const { username } = req.params;
+  const { token } = req.headers;
+  utilFuncs
+    .checkToken(username, token)
+    .then((tokenValid) => {
+      if (tokenValid) {
+        dbFuncs.getHistoryViews(username).then((data) => {
+          return res.json(data);
+        });
+      } else {
+        return res.sendStatus(403);
+      }
+    })
+    .catch((err) => {
+      console.log(
+        `Error status 500 on get orders for username, server.js: ${err}`
+      );
+      res.sendStatus(500);
+    });
+});
+
+//#endregion
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));

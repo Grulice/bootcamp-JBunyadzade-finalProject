@@ -13,7 +13,7 @@ export const LoginInfoContainer = styled.div`
   display: flex;
   flex-direction: row-reverse;
   align-items: center;
-  width: 400px;
+  /* width: 600px; */
 `;
 export const LoginInfoLabel = styled.p`
   margin: 0 10px;

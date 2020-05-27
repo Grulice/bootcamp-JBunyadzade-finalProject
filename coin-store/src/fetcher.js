@@ -169,3 +169,24 @@ export function postCoinView(id) {
     method: "POST",
   }).then((response) => response.status === 200);
 }
+
+export function postHistoryView(username, token, coin_id) {
+  const reqbody = { coin_id };
+  return fetch(`${SERVER_BASEURL}/history/${username}`, {
+    method: "POST",
+    headers: {
+      token,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(reqbody),
+  }).then((response) => response.status === 200);
+}
+
+export function getHistoryViews(username, token) {
+  return fetch(`${SERVER_BASEURL}/history/${username}`, {
+    method: "GET",
+    headers: {
+      token,
+    },
+  }).then((response) => response.json());
+}

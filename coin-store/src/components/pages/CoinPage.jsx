@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { ButtonTextSmall, LinkSmall } from "../../commonElements";
 import AddToCart from "../UIComponents/cart/AddToCart";
 import * as fetcher from "../../fetcher";
@@ -45,6 +46,7 @@ class CoinPage extends Component {
   }
 
   refreshPage = () => {
+    const { username, token } = this.props;
     const { id } = this.props.match.params;
     fetcher.getCoinInfo(id).then((result) =>
       this.setState({
@@ -68,6 +70,9 @@ class CoinPage extends Component {
 
     // increase view count
     fetcher.postCoinView(id);
+
+    // post view to history
+    if (username && token) fetcher.postHistoryView(username, token, id);
   };
 
   render() {
@@ -161,5 +166,11 @@ class CoinPage extends Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    username: state.auth.username,
+    token: state.auth.token,
+  };
+};
 
-export default withRouter(CoinPage);
+export default withRouter(connect(mapStateToProps)(CoinPage));

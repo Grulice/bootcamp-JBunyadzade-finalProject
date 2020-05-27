@@ -469,6 +469,38 @@ where
   return sendQuery(conn, query, params);
 }
 
+function postHistoryView(username, coin_id, view_time) {
+  const query = `
+    insert into users_viewhistory(username, coin_id, view_time) values
+    (?, ?, ?)
+  `;
+  const params = [username, coin_id, view_time];
+  return sendQuery(conn, query, params);
+}
+
+function getHistoryViews(username) {
+  const query = `
+  SELECT 
+  main.id, username, coin_id, view_time, coins.name
+FROM
+    users_viewhistory main
+        RIGHT JOIN
+    coins ON main.coin_id = coins.id
+WHERE
+    view_time IN (SELECT 
+            MAX(view_time)
+        FROM
+            users_viewhistory
+        WHERE
+            main.coin_id = coin_id
+                AND username = ?)
+ORDER BY view_time DESC
+LIMIT 5
+  `;
+  const params = [username];
+  return sendQuery(conn, query, params);
+}
+
 module.exports = {
   sendQuery,
   getCoinCount,
@@ -496,4 +528,6 @@ module.exports = {
   getOrdersFor,
   postOrder,
   putOrderStatus,
+  postHistoryView,
+  getHistoryViews,
 };

@@ -6,6 +6,7 @@ import {
   LinkSmall,
 } from "../../commonElements";
 import Cart from "./cart/Cart";
+import RecentCoins from "./RecentCoins";
 import { withRouter, Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { removeLoginData } from "../../redux/auth/actions";
@@ -93,6 +94,7 @@ class Header extends Component {
                 )}
               </LoginInfoLabel>
               <Cart />
+              <RecentCoins />
             </>
           ) : (
             <></>

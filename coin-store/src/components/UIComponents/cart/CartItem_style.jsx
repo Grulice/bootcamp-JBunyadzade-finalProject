@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export const ItemContainer = styled.div`
   display: ${(props) => (props.removed ? "none" : "flex")};
   margin-bottom: 10px;
-  padding: 5px 0;
+  padding: 5px 0 5px 5px;
   &:hover {
     background-color: #f3f3f3;
   }
