@@ -89,7 +89,7 @@ class AdminOrderItem extends Component {
           <table className="order-contents-table">
             <tbody>
               {articles.map((article) => (
-                <AdminOrderItemArticle {...article} />
+                <AdminOrderItemArticle key={article.id} {...article} />
               ))}
               <FinalRow style={{ borderTop: "0.5px solid black" }}>
                 <td colSpan="2" style={{ textAlign: "right" }}>
