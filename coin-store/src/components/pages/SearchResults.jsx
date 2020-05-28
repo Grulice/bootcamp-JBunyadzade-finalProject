@@ -6,7 +6,13 @@ import Paginator from "../UIComponents/paginator/Paginator";
 class SearchResults extends Component {
   constructor(props) {
     super(props);
-    this.state = { offset: 0, count: 10, searchResultData: [], searchCount: 0 };
+    this.state = {
+      offset: 0,
+      count: 10,
+      searchResultData: [],
+      searchCount: 0,
+      searching: false,
+    };
   }
   componentDidMount() {
     this.refreshSearch();
@@ -23,15 +29,18 @@ class SearchResults extends Component {
   refreshSearch = () => {
     const { offset, count } = this.state;
     const curLoc = this.props.location.search;
-    fetcher
-      .getSearchResults(curLoc + `&offset=${offset}&count=${count}`)
-      .then((result) =>
-        this.setState({
-          offset: 0,
-          searchResultData: result.data,
-          searchCount: result.count,
-        })
-      );
+    this.setState({ searching: true }, () =>
+      fetcher
+        .getSearchResults(curLoc + `&offset=${offset}&count=${count}`)
+        .then((result) =>
+          this.setState({
+            offset: 0,
+            searchResultData: result.data,
+            searchCount: result.count,
+            searching: false,
+          })
+        )
+    );
   };
   handlePaginatorChange = (pageNum, pageSize) => {
     console.log(pageNum, pageSize);
@@ -42,7 +51,7 @@ class SearchResults extends Component {
   };
 
   render() {
-    const { searchResultData } = this.state;
+    const { searchResultData, searching } = this.state;
     return (
       <div>
         {searchResultData.length !== 0 ? (
@@ -59,8 +68,10 @@ class SearchResults extends Component {
             onChange={this.handlePaginatorChange}
           />
         ) : (
-          "We found nothing :("
+          ""
         )}
+        {searching ? <p>Searching...</p> : ""}
+        {searchResultData.length === 0 && !searching ? <p>No results</p> : ""}
       </div>
     );
   }
