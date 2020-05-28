@@ -224,9 +224,8 @@ class HomePage extends Component {
                   )}
                 >
                   <ButtonTextSmall>Show all ></ButtonTextSmall>
+                  <img src="./img/dong.png" alt="" />
                 </Link>
-
-                <img src="./img/dong.png" alt="" />
               </CoinPlaque>
               <CoinPlaque>
                 <h2>Exclusive Coins</h2>
@@ -244,9 +243,8 @@ class HomePage extends Component {
                   )}
                 >
                   <ButtonTextSmall>Show all ></ButtonTextSmall>
+                  <img src="./img/isk.png" alt="" />
                 </Link>
-
-                <img src="./img/isk.png" alt="" />
               </CoinPlaque>
               <CoinPlaque>
                 <h2>Commemorative Coins</h2>
@@ -264,9 +262,8 @@ class HomePage extends Component {
                   )}
                 >
                   <ButtonTextSmall>Show all ></ButtonTextSmall>
+                  <img src="./img/looney.png" alt="" />
                 </Link>
-
-                <img src="./img/looney.png" alt="" />
               </CoinPlaque>
             </CategoriesContainer>
           </Route>
