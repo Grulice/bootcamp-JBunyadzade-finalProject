@@ -62,7 +62,6 @@ class AdminEditCoin extends Component {
   }
 
   componentDidMount() {
-    console.log(this.props.match.params.id);
     this.populateSelects().then((_) => {
       fetcher
         .getCoinInfo(this.props.match.params.id)
@@ -175,7 +174,6 @@ class AdminEditCoin extends Component {
 
   populateFormValues = (servData) => {
     const coinInfo = servData[0];
-    console.log(coinInfo);
     this.setState({
       countrySelect: coinInfo.country_id,
       metalSelect: coinInfo.material_id,

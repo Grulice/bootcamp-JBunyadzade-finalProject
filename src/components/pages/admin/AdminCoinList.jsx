@@ -107,7 +107,6 @@ class AdminCoinList extends Component {
     this.setState({ searchTextInp: e.target.value });
 
   handlePaginatorChange = (pageNum, pageSize) => {
-    console.log(pageNum, pageSize);
     this.setState(
       { offset: (pageNum - 1) * pageSize, count: pageSize },
       this.handleSearchRequest
@@ -136,7 +135,6 @@ class AdminCoinList extends Component {
       yearMaxInp
     );
     const { offset, count } = this.state;
-    console.log(compiledLink, offset, count);
     fetcher
       .getSearchResults(compiledLink + `&offset=${offset}&count=${count}`)
       .then((result) =>

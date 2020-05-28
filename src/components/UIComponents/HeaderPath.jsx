@@ -23,7 +23,6 @@ class HeaderPath extends Component {
   }
   render() {
     const { path } = this.props;
-    console.log(path.split("/"));
     return (
       <div>
         {path.split("/").map((pathPart) => {

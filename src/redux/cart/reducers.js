@@ -51,7 +51,6 @@ export const cartReducer = (state = initState, action) => {
     case CHANGE_CART_ITEM: {
       const newItem = action.payload;
       const newCart = state.cart.map((item) => {
-        console.log(item, newItem);
         if (parseInt(item.id) === newItem.id) {
           return newItem;
         } else return item;

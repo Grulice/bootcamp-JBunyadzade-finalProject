@@ -43,7 +43,6 @@ class SearchResults extends Component {
     );
   };
   handlePaginatorChange = (pageNum, pageSize) => {
-    console.log(pageNum, pageSize);
     this.setState(
       { offset: (pageNum - 1) * pageSize, count: pageSize },
       this.refreshSearch

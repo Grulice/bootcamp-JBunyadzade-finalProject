@@ -53,7 +53,6 @@ class AdminOrderItem extends Component {
   handleSave = () => {
     const { token, id } = this.props;
     const { status } = this.state;
-    console.log("in handle save", status);
     fetcher.putOrderStatus(token, id, status).then((success) => {
       if (success) {
         this.setState({ updateSuccess: true }, () => {
@@ -89,7 +88,7 @@ class AdminOrderItem extends Component {
           <table className="order-contents-table">
             <tbody>
               {articles.map((article) => (
-                <AdminOrderItemArticle {...article} />
+                <AdminOrderItemArticle key={article.id} {...article} />
               ))}
               <FinalRow style={{ borderTop: "0.5px solid black" }}>
                 <td colSpan="2" style={{ textAlign: "right" }}>

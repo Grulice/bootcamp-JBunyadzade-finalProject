@@ -8,9 +8,6 @@ class OrderItemArticle extends Component {
     this.state = {};
   }
 
-  componentDidMount() {
-    console.log(this.props);
-  }
   render() {
     const { id, name, price, quantity } = this.props;
     return (

@@ -108,7 +108,6 @@ export function getSimilarCoins(id) {
 }
 
 export function sendOrder(username, token, orderInfo) {
-  console.log(JSON.stringify(orderInfo));
   return fetch(`/api/orders/${username}`, {
     method: "POST",
     headers: {
@@ -139,7 +138,6 @@ export function getAllOrders(token) {
 
 export function putOrderStatus(token, orderId, status) {
   const reqbody = { status };
-  console.log("in fetcher", reqbody);
   return fetch(`/api/orders/${orderId}`, {
     method: "PUT",
     headers: {

@@ -31,7 +31,7 @@ class RecentCoins extends Component {
   getRecents = () => {
     const { username, token } = this.props;
     fetcher.getHistoryViews(username, token).then((result) => {
-      this.setState({ recents: result }, () => console.log(this.state));
+      this.setState({ recents: result });
     });
   };
   render() {

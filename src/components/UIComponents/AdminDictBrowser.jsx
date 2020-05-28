@@ -54,13 +54,10 @@ class AdminDictBrowser extends Component {
   populateDictionary = () => {
     const { tableName } = this.props;
     fetcher.getDict(tableName).then((result) =>
-      this.setState(
-        {
-          dictionary: result,
-          colName: Object.keys(result[0])[1],
-        },
-        () => console.log(this.state)
-      )
+      this.setState({
+        dictionary: result,
+        colName: Object.keys(result[0])[1],
+      })
     );
   };
   render() {
